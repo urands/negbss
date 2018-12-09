@@ -110,11 +110,6 @@ channel.queue_bind(exchange='code',
                    queue=queue_name)
 
 
-
-
-
-
-
 import time
 
 def callback_code(ch, method, properties, body):

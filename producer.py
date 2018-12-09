@@ -102,10 +102,8 @@ def click_button_send():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
     c = text.GetText()
-    channel.exchange_declare(exchange='code',
-                         exchange_type='fanout')
-    channel.basic_publish(exchange='code',
-                routing_key='',
+    channel.basic_publish(exchange='',
+                routing_key='bss',
                 body=c
                 )
     #print(c)
@@ -117,7 +115,7 @@ btn = tk.Button(text="Send code to all consumers", command=click_button)
 btn.pack()
 
 btn_msg = tk.Button(text="Send message", command=click_button_send)
-btn_msg.pack()
+#btn_msg.pack()
 
 
 root.mainloop()

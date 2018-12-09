@@ -87,7 +87,7 @@ messages = ['{ "in" : [ 1, 1],  "call" : "add",  "out" : "a" }',
 
 msg_count = 10000
 
-messages = genmsg_list_simple(msg_count)
+messages = genmsg_list(msg_count)
 
 #print( messages )
 
@@ -97,13 +97,11 @@ messages = genmsg_list_simple(msg_count)
 msg_count_repl = 0
 
 def on_client_rx_reply_from_server(ch, method_frame, properties, body):
-    #print ('RPC Client got reply:', json.loads(body) )
-    # NOTE A real client might want to make additional RPC requests, but in this
-    # simple example we're closing the channel after getting our first reply
-    # to force control to return from channel.start_consuming()
-    #print ('RPC Client says bye')
-    if (  json.loads(body) == 3):
-        ch.close()
+    global msg_count
+    val = json.loads(body)
+    #if ( msg_count  < val):
+    print('Return:', val)
+    ch.close()
 
 
 channel.basic_consume(on_client_rx_reply_from_server, no_ack=True,
